@@ -3,6 +3,7 @@ from tkinter.filedialog import askopenfilename, asksaveasfilename, askdirectory
 import api
 from tkinter.ttk import *
 import time
+from threading import *
 
 
 def open_folder():
@@ -33,6 +34,11 @@ def recognize():
         window.update_idletasks()
 
 
+def threading():
+    t1 = Thread(target=recognize)
+    t1.start()
+
+
 window = tk.Tk()
 window.title("Bài tập ứng dụng - Mai Trọng Thuần")
 window.rowconfigure(0, minsize=800, weight=1)
@@ -41,14 +47,14 @@ window.columnconfigure(1, minsize=800, weight=1)
 txt_edit = tk.Text(window)
 fr_buttons = tk.Frame(window, relief=tk.RAISED, bd=2)
 btn_open = tk.Button(fr_buttons, text="Mở thư mục", command=open_folder)
-btn_save = tk.Button(fr_buttons, text="Phân tích ảnh", command=recognize)
+btn_recognize = tk.Button(fr_buttons, text="Phân tích ảnh", command=threading)
 txt = tk.Label(
     window,
     text='0%'
 )
 
 btn_open.grid(row=0, column=0, sticky="ew", padx=5, pady=5)
-btn_save.grid(row=1, column=0, sticky="ew", padx=5)
+btn_recognize.grid(row=1, column=0, sticky="ew", padx=5)
 
 fr_buttons.grid(row=0, column=0, sticky="ns")
 txt_edit.grid(row=0, column=1, sticky="nsew")
